@@ -1,7 +1,8 @@
-FROM maven AS build
-#WORKDIR /app
-#COPY . .
-RUN mvn clean package
+FROM maven:3.5-jdk-8 as BUILD
 
-#FROM tomcat
-#COPY --from=build /app/target/petclinic.war /usr/local/tomcat/webapps
+COPY . /usr/src/
+#COPY pom.xml /usr/src/myapp
+RUN mvn -f /usr/src/pom.xml clean package
+
+FROM tomcat
+COPY --from=BUILD /usr/src/target/petclinic.war /usr/local/tomcat/webapps
