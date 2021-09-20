@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: petclinic-svc
   namespace: petclinic-ns
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: alb
 spec:
   selector:
     app: petclinic
